@@ -24,15 +24,6 @@ void createYuvLookupTables(){
             yuvRed[v][y]  = clamp(val);
         }
     }
-	for (int y = 0; y < 256; y++) {
-        for (int u = 0; u < 256; u++) {
-            yy = y << 8;
-            uu = u - 128;
-            ub = uu * 454;
-            val = (yy + ub) >> 8;
-            yuvBlue[u][y] = clamp(val);
-        }
-	}
     for (int y = 0; y < 256; y++) {
         for (int u = 0; u < 256; u++) {
             for (int v = 0; v < 256; v++) {
@@ -45,6 +36,15 @@ void createYuvLookupTables(){
             }
         }
     }
+	for (int y = 0; y < 256; y++) {
+        for (int u = 0; u < 256; u++) {
+            yy = y << 8;
+            uu = u - 128;
+            ub = uu * 454;
+            val = (yy + ub) >> 8;
+            yuvBlue[u][y] = clamp(val);
+        }
+	}
 	yuvReady = true;
 }
 
