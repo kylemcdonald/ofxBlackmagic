@@ -1,3 +1,5 @@
+#oragma once
+
 #include "ofMain.h"
 
 template <class T>

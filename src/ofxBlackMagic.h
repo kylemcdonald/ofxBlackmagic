@@ -4,6 +4,8 @@
  four bytes.
  */
 
+#pragma once
+
 #include "ofMain.h"
 
 #include "DeckLinkController.h"

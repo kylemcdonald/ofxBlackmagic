@@ -5,6 +5,8 @@
  buffered video data member.
  */
 
+#pragma once
+
 #include "ofMain.h"
 
 #include "DeckLinkAPI.h"
