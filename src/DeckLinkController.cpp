@@ -168,8 +168,13 @@ bool DeckLinkController::startCaptureWithIndex(int videoModeIndex)  {
 }
 
 bool DeckLinkController::startCaptureWithMode(BMDDisplayMode videoMode) {
-	vector<unsigned char> prototype(1920 * 1080 * 2);
-	buffer.setup(prototype);
+	if(videoMode == bmdModeHD1080p30) {
+		vector<unsigned char> prototype(1920 * 1080 * 2);
+		buffer.setup(prototype);
+	} else {
+		ofLogError("DeckLinkController") << "DeckLinkController needs to be updated to support that mode.";
+		return false;
+	}
 	
 	BMDVideoInputFlags videoInputFlags;
 	
@@ -232,6 +237,22 @@ bail:
 	return S_OK;
 }
 
+typedef struct {
+	// VITC timecodes and user bits for field 1 & 2
+	string vitcF1Timecode;
+	string vitcF1UserBits;
+	string vitcF2Timecode;
+	string vitcF2UserBits;
+	
+	// RP188 timecodes and user bits (VITC1, VITC2 and LTC)
+	string rp188vitc1Timecode;
+	string rp188vitc1UserBits;
+	string rp188vitc2Timecode;
+	string rp188vitc2UserBits;
+	string rp188ltcTimecode;
+	string rp188ltcUserBits;
+} AncillaryDataStruct;
+
 HRESULT DeckLinkController::VideoInputFrameArrived (/* in */ IDeckLinkVideoInputFrame* videoFrame, /* in */ IDeckLinkAudioInputPacket* audioPacket)  {
 //	bool hasValidInputSource = (videoFrame->GetFlags() & bmdFrameHasNoInputSource) != 0;
 	
@@ -243,7 +264,7 @@ HRESULT DeckLinkController::VideoInputFrameArrived (/* in */ IDeckLinkVideoInput
 //	getAncillaryDataFromFrame(videoFrame, bmdTimecodeRP188VITC1, ancillaryData.rp188vitc1Timecode, ancillaryData.rp188vitc1UserBits);
 //	getAncillaryDataFromFrame(videoFrame, bmdTimecodeRP188LTC, ancillaryData.rp188ltcTimecode, ancillaryData.rp188ltcUserBits);
 //	getAncillaryDataFromFrame(videoFrame, bmdTimecodeRP188VITC2, ancillaryData.rp188vitc2Timecode, ancillaryData.rp188vitc2UserBits);
-//	
+
 	void* bytes;
 	videoFrame->GetBytes(&bytes);
 	unsigned char* raw = (unsigned char*) bytes;

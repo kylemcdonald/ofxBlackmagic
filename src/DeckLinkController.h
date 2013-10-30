@@ -1,23 +1,14 @@
+/*
+ DeckLinkController is a C++ only port of sample code from the DeckLink SDK
+ that demonstrates how to get device info, start and stop a capture stream, and
+ get video frame data from an input device. The only addition is a triple
+ buffered video data member.
+ */
+
 #include "ofMain.h"
 
 #include "DeckLinkAPI.h"
-#include "Synchronized.h"
-
-typedef struct {
-	// VITC timecodes and user bits for field 1 & 2
-	string vitcF1Timecode;
-	string vitcF1UserBits;
-	string vitcF2Timecode;
-	string vitcF2UserBits;
-	
-	// RP188 timecodes and user bits (VITC1, VITC2 and LTC)
-	string rp188vitc1Timecode;
-	string rp188vitc1UserBits;
-	string rp188vitc2Timecode;
-	string rp188vitc2UserBits;
-	string rp188ltcTimecode;
-	string rp188ltcUserBits;
-} AncillaryDataStruct;
+#include "TripleBuffer.h"
 
 class DeckLinkController : public IDeckLinkInputCallback {
 private:

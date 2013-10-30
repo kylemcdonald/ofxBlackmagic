@@ -55,7 +55,7 @@ public:
 		}
 	}
 	void draw() {
-		cam.draw();
+		cam.drawYuv();
 		ofDrawBitmapStringHighlight(ofToString((int) timer.getFramerate()), 10, 20);
 	}
 	void keyPressed(int key) {
