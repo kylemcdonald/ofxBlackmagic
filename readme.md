@@ -1,5 +1,8 @@
 # ofxBlackMagic is an addon for [openFrameworks](http://openframeworks.cc/)
 
+THIS FORK IS MODIFIED TO WORK WITH A 3840x2160 @ 29.97 INPUT FROM ULTRASTUDIO 4K
+
+
 This addon is derived from studying an older addon, [ofxBlackMagicGrabber](https://github.com/arturoc/ofxBlackmagicGrabber), and the [DeckLink SDK](http://www.blackmagicdesign.com/support/sdks) sample code.
 
 The goal is to provide a simple and highly optimized interface with no extraneous methods that makes it clear what a Black Magic device can offer.
