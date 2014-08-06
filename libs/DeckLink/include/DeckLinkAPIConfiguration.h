@@ -1,5 +1,5 @@
 /* -LICENSE-START-
-** Copyright (c) 2013 Blackmagic Design
+** Copyright (c) 2014 Blackmagic Design
 **
 ** Permission is hereby granted, free of charge, to any person or organization
 ** obtaining a copy of the software and accompanying documentation covered by
@@ -110,6 +110,7 @@ enum _BMDDeckLinkConfigurationID {
     bmdDeckLinkConfigVANCSourceLine1Mapping                      = 'vsl1',
     bmdDeckLinkConfigVANCSourceLine2Mapping                      = 'vsl2',
     bmdDeckLinkConfigVANCSourceLine3Mapping                      = 'vsl3',
+    bmdDeckLinkConfigCapturePassThroughMode                      = 'cptm',
 
     /* Video Input Floats */
 

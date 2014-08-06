@@ -44,7 +44,7 @@ public:
 	
 	void setup() {
 		ofSetLogLevel(OF_LOG_VERBOSE);
-		cam.setup(1920, 1080, 30);
+		cam.setup(3840, 2160, 30);
 	}
 	void exit() {
 		cam.close();
@@ -55,7 +55,7 @@ public:
 		}
 	}
 	void draw() {
-		cam.drawGray();
+		cam.drawColor();
 		ofDrawBitmapStringHighlight(ofToString((int) timer.getFramerate()), 10, 20);
 	}
 	void keyPressed(int key) {

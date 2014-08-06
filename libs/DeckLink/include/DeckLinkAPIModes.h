@@ -1,5 +1,5 @@
 /* -LICENSE-START-
-** Copyright (c) 2013 Blackmagic Design
+** Copyright (c) 2014 Blackmagic Design
 **
 ** Permission is hereby granted, free of charge, to any person or organization
 ** obtaining a copy of the software and accompanying documentation covered by
@@ -83,6 +83,12 @@ enum _BMDDisplayMode {
     bmdMode2k2398                                                = '2k23',
     bmdMode2k24                                                  = '2k24',
     bmdMode2k25                                                  = '2k25',
+
+    /* DCI Modes (output only) */
+
+    bmdMode2kDCI2398                                             = '2d23',
+    bmdMode2kDCI24                                               = '2d24',
+    bmdMode2kDCI25                                               = '2d25',
 
     /* 4k Modes */
 
