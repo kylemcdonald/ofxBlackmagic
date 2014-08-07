@@ -171,7 +171,10 @@ bool DeckLinkController::startCaptureWithMode(BMDDisplayMode videoMode) {
 	if(videoMode == bmdMode4K2160p2997) {
 		vector<unsigned char> prototype(3840 * 2160 * 2);
 		buffer.setup(prototype);
-	} else {
+	} else if(videoMode == bmdModeHD1080p30) {
+        vector<unsigned char> prototype(1920 * 1080 * 2);
+		buffer.setup(prototype);
+    }else{
 		ofLogError("DeckLinkController") << "DeckLinkController needs to be updated to support that mode.";
 		return false;
 	}
