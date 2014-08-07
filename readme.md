@@ -20,7 +20,7 @@ Some advantages of this addon:
 
 This addon has been checked with OS X 10.8 on Mac Mini, openFrameworks 0.8.0 and an UltraStudio Mini Recorder with a single 1080p30 camera.
 
-This addon has been checked with a OS X 10.9 on a MacPro trash can with openFrameworks 0.8.3 and an UltraStudio 4k Thunderbolt 2 device. 
+This addon has been checked with a OS X 10.9 on a MacPro trashcan with openFrameworks 0.8.3 and an UltraStudio 4k Thunderbolt 2 device. 
 
 ## Installation
 
