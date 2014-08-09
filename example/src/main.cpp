@@ -44,7 +44,7 @@ public:
 	
 	void setup() {
 		ofSetLogLevel(OF_LOG_VERBOSE);
-		cam.setup(3840, 2160, 30);
+		cam.setup(1920, 1080, 30);
 	}
 	void exit() {
 		cam.close();
