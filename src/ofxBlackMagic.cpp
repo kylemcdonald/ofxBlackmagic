@@ -18,9 +18,11 @@ bool ofxBlackMagic::setup(int width, int height, float framerate) {
 	vector<string> displayModes = controller.getDisplayModeNames();
 	ofLogVerbose("ofxBlackMagic") << "Available display modes: " << ofToString(displayModes);
 	BMDDisplayMode displayMode = bmdModeUnknown;
-	if(width == 1920 && height == 1080 && framerate == 30) {
+	if(width == 3840 && height == 2160 && framerate == 30) {
+		displayMode = bmdMode4K2160p2997;
+	} else if(width == 1920 && height == 1080 && framerate == 30) {
 		displayMode = bmdModeHD1080p30;
-	} else {
+	}else{
 		ofLogError("ofxBlackMagic") << "ofxBlackMagic needs to be updated to support that mode.";
 		return false;
 	}
