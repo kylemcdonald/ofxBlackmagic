@@ -353,3 +353,157 @@ void DeckLinkController::getAncillaryDataFromFrame(IDeckLinkVideoInputFrame* vid
 	
 	
 }
+
+// picks the mode with matching resolution, with highest available framerate
+// and a preference for progressive over interlaced
+BMDDisplayMode DeckLinkController::getMatchingDisplayMode(int w, int h) {
+
+	if (w == 720 && h == 486) {				// NTSC
+		return bmdModeNTSCp;
+	} else if (w == 720 && h == 576) {		// PAL
+		return bmdModePALp;
+	} else if (w == 1280 && h == 720) {		// HD 720
+		return bmdModeHD720p60;
+	} else if (w == 1920 && h == 1080) {	// HD 1080
+		return bmdModeHD1080p6000;
+	} else if (w == 2048 && h == 1556) {	// 2k
+		return bmdMode2k25;
+	} else if (w == 2048 && h == 1080) {	// 2k DCI
+		return bmdMode2kDCI25;
+	} else if (w == 3840 && h == 2160) {	// 4K
+		return bmdMode4K2160p30;
+	} else if (w == 4096 && h == 2160) {	// 4k DCI
+		return bmdMode4kDCI25;
+	}
+
+	return bmdModeUnknown;
+}
+
+// framerate should be in the form of thousands for decimal values
+// e.g. 2997 for 29.97fps
+// for whole numbers it can be either
+// e.g. 30 or 3000 for 30fps
+// that said, with int trucation we can make some assumptions
+BMDDisplayMode DeckLinkController::getDisplayMode(int w, int h, int framerate) {
+	string err = "invalid framerate, for this resolution you can use:";
+
+	if (w == 720 && h == 486) {									// NTSC
+		if (framerate == 2997 || framerate == 29) {
+		    return bmdModeNTSC;
+		} else if (framerate == 2398 || framerate == 23) {
+            return bmdModeNTSC2398;
+		} else if (framerate == 5994 || framerate == 59) {
+		    return bmdModeNTSCp;
+		} else {
+			ofLogError("DeckLinkController") << err << endl
+				<< "29, 23, 59, 2997, 2398, 5994";
+			return bmdModeUnknown;
+		}
+	} else if (w == 720 && h == 576) {							// PAL
+		if (framerate == 2500 || framerate == 25) {
+		    return bmdModePAL;
+		} else if (framerate == 5000 || framerate == 50) {
+		    return bmdModePALp;
+		} else {
+			ofLogError("DeckLinkController") << err << endl
+				<< "25, 50, 2500, 5000";
+			return bmdModeUnknown;
+		}
+	} else if (w == 1280 && h == 720) {							// HD 720
+		if (framerate == 5000 || framerate == 50) {
+            return bmdModeHD720p50;
+		} else if (framerate == 5994 || framerate == 59) {
+		    return bmdModeHD720p5994;
+		} else if (framerate == 6000 || framerate == 60) {
+			return bmdModeHD720p60;
+		} else {
+			ofLogError("DeckLinkController") << err << endl
+				<< "59, 60, 5994, 6000";
+			return bmdModeUnknown;
+		}
+	} else if (w == 1920 && h == 1080) {						// HD 1080
+		if (framerate == 2398 || framerate == 23) {
+			return bmdModeHD1080p2398;
+		} else if (framerate == 2400 || framerate == 24) {
+			return bmdModeHD1080p24;
+		} else if (framerate == 2500 || framerate == 25) {
+			return bmdModeHD1080p25;
+		} else if (framerate == 2997 || framerate == 29) {
+			return bmdModeHD1080p2997;
+		} else if (framerate == 3000 || framerate == 30) {
+			return bmdModeHD1080p30;
+		} else if (framerate == 5000 || framerate == 50) {
+			return bmdModeHD1080i50;
+		} else if (framerate == 5994 || framerate == 59) {
+			return bmdModeHD1080i5994;
+		} else if (framerate == 6000 || framerate == 60) {
+			return bmdModeHD1080i6000;
+		} else if (framerate == 5000 || framerate == 50) {
+			return bmdModeHD1080p50;
+		} else if (framerate == 5994 || framerate == 59) {
+			return bmdModeHD1080p5994;
+		} else if (framerate == 6000 || framerate == 60) {
+			return bmdModeHD1080p6000;
+		} else {
+			ofLogError("DeckLinkController") << err << endl
+				<< "24, 25, 29, 30, 50, 59, 60, 50, 59, 60" << endl
+				<< "2400, 2500, 2997, 3000, 5000, 5994, 6000, 5000, 5994, 6000";
+			return bmdModeUnknown;
+		}
+	} else if (w == 2048 && h == 1556) {						// 2k
+		if (framerate == 2398 || framerate == 23) {
+			return bmdMode2k2398;
+		} else if (framerate == 2400 || framerate == 24) {
+			return bmdMode2k24;
+		} else if (framerate == 2500 || framerate == 25) {
+			return bmdMode2k25;
+		} else {
+			ofLogError("DeckLinkController") << err << endl
+				<< "23, 24, 25, 2398, 2400, 2500";
+			return bmdModeUnknown;
+		}
+	} else if (w == 2048 && h == 1080) {						// 2k DCI
+		if (framerate == 2398 || framerate == 23) {
+			return bmdMode2kDCI2398;
+		} else if (framerate == 2400 || framerate == 24) {
+			return bmdMode2kDCI24;
+		} else if (framerate == 2500 || framerate == 25) {
+			return bmdMode2kDCI25;
+		} else {
+			ofLogError("DeckLinkController") << err << endl
+				<< "23, 24, 25, 2398, 2400, 2500";
+			return bmdModeUnknown;
+		}
+	} else if (w == 3840 && h == 2160) {						// 4K
+		if (framerate == 2398 || framerate ==  23) {
+			return bmdMode4K2160p2398;
+		} else if (framerate == 2400 || framerate == 24) {
+			return bmdMode4K2160p24;
+		} else if (framerate == 2500 || framerate == 25) {
+			return bmdMode4K2160p25;
+		} else if (framerate == 2997 || framerate == 29) {
+			return bmdMode4K2160p2997;
+		} else if (framerate == 3000 || framerate == 30) {
+			return bmdMode4K2160p30;
+		} else {
+			ofLogError("DeckLinkController") << err << endl
+				<< "23, 24, 25, 29, 30" << endl
+				<< "2398, 2400, 2500, 2997, 3000";
+			return bmdModeUnknown;
+		}
+	} else if (w == 4096 && h == 2160) {						// 4k DCI
+		if (framerate == 2398 || framerate == 23) {
+		    return bmdMode4kDCI2398;
+		} else if (framerate == 2400 || framerate == 24) {
+		    return bmdMode4kDCI24;
+		} else if (framerate == 2500 || framerate == 25) {
+		    return bmdMode4kDCI25;
+		} else {
+			ofLogError("DeckLinkController") << err << endl
+				<< "23, 24, 25, 2398, 2400, 2500";
+			return bmdModeUnknown;
+		}
+	}
+
+	return bmdModeUnknown;
+}
