@@ -353,7 +353,7 @@ void DeckLinkController::getAncillaryDataFromFrame(IDeckLinkVideoInputFrame* vid
 
 // picks the mode with matching resolution, with highest available framerate
 // and a preference for progressive over interlaced
-BMDDisplayMode DeckLinkController::getMatchingDisplayMode(int w, int h) {
+BMDDisplayMode DeckLinkController::getDisplayMode(int w, int h) {
 
 	if (w == 720 && h == 486) {				// NTSC
 		return bmdModeNTSCp;
