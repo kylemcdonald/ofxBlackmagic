@@ -40,7 +40,9 @@ public:
 	vector<string> getDisplayModeNames();
 	bool isFormatDetectionEnabled();
 	bool isCapturing();
-	
+
+	unsigned long getDisplayModeBufferSize(BMDDisplayMode mode);
+
 	bool startCaptureWithMode(BMDDisplayMode videoMode);
 	bool startCaptureWithIndex(int videoModeIndex);
 	void stopCapture();

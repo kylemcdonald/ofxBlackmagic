@@ -157,6 +157,54 @@ bool DeckLinkController::isCapturing()  {
 	return currentlyCapturing;
 }
 
+unsigned long DeckLinkController::getDisplayModeBufferSize(BMDDisplayMode mode) {
+
+	if(mode == bmdModeNTSC2398
+			|| mode == bmdModeNTSC
+			|| mode == bmdModeNTSCp) {
+		return 720 * 486 * 2;
+	} else if( mode == bmdModePAL
+			|| mode == bmdModePALp) {
+		return 720 * 576 * 2;
+	} else if( mode == bmdModeHD720p50
+			|| mode == bmdModeHD720p5994
+			|| mode == bmdModeHD720p60) {
+		return 1280 * 720 * 2;
+	} else if( mode == bmdModeHD1080p2398
+			|| mode == bmdModeHD1080p24
+			|| mode == bmdModeHD1080p25
+			|| mode == bmdModeHD1080p2997
+			|| mode == bmdModeHD1080p30
+			|| mode == bmdModeHD1080i50
+			|| mode == bmdModeHD1080i5994
+			|| mode == bmdModeHD1080i6000
+			|| mode == bmdModeHD1080p50
+			|| mode == bmdModeHD1080p5994
+			|| mode == bmdModeHD1080p6000) {
+		return 1920 * 1080 * 2;
+	} else if( mode == bmdMode2k2398
+			|| mode == bmdMode2k24
+			|| mode == bmdMode2k25) {
+		return 2048 * 1556 * 2;
+	} else if( mode == bmdMode2kDCI2398
+			|| mode == bmdMode2kDCI24
+			|| mode == bmdMode2kDCI25) {
+		return 2048 * 1080 * 2;
+	} else if( mode == bmdMode4K2160p2398
+			|| mode == bmdMode4K2160p24
+			|| mode == bmdMode4K2160p25
+			|| mode == bmdMode4K2160p2997
+			|| mode == bmdMode4K2160p30) {
+		return 3840 * 2160 * 2;
+	} else if( mode == bmdMode4kDCI2398
+			|| mode == bmdMode4kDCI24
+			|| mode == bmdMode4kDCI25) {
+		return 4096 * 2160 * 2;
+	}
+
+	return 0;
+}
+
 bool DeckLinkController::startCaptureWithIndex(int videoModeIndex)  {
 	// Get the IDeckLinkDisplayMode from the given index
 	if ((videoModeIndex < 0) || (videoModeIndex >= modeList.size())) {
