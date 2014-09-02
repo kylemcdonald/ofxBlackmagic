@@ -383,11 +383,11 @@ BMDDisplayMode DeckLinkController::getDisplayMode(int w, int h, float framerate)
 	string err = "invalid framerate, for this resolution you can use:";
 
 	if (w == 720 && h == 486) {									// NTSC
-		if (framerate == 29.97 || framerate == 29) {
+		if (framerate == 29.97) {
 		    return bmdModeNTSC;
-		} else if (framerate == 23.98 || framerate == 23) {
+		} else if (framerate == 23.98) {
             return bmdModeNTSC2398;
-		} else if (framerate == 59.94 || framerate == 59) {
+		} else if (framerate == 59.94) {
 		    return bmdModeNTSCp;
 		} else {
 			ofLogError("DeckLinkController") << err << endl
@@ -407,7 +407,7 @@ BMDDisplayMode DeckLinkController::getDisplayMode(int w, int h, float framerate)
 	} else if (w == 1280 && h == 720) {							// HD 720
         if (framerate == 50) {
             return bmdModeHD720p50;
-		} else if (framerate == 59.94 || framerate == 59) {
+		} else if (framerate == 59.94) {
 		    return bmdModeHD720p5994;
 		} else if (framerate == 60) {
 			return bmdModeHD720p60;
@@ -417,25 +417,25 @@ BMDDisplayMode DeckLinkController::getDisplayMode(int w, int h, float framerate)
 			return bmdModeUnknown;
 		}
 	} else if (w == 1920 && h == 1080) {						// HD 1080
-		if (framerate == 2398 || framerate == 23) {
+		if (framerate == 23.98) {
 			return bmdModeHD1080p2398;
 		} else if (framerate == 24) {
 			return bmdModeHD1080p24;
 		} else if (framerate == 25) {
 			return bmdModeHD1080p25;
-		} else if (framerate == 29.97 || framerate == 29) {
+		} else if (framerate == 29.97) {
 			return bmdModeHD1080p2997;
 		} else if (framerate == 30) {
 			return bmdModeHD1080p30;
 		} else if (framerate == 50) {
 			return bmdModeHD1080i50;
-		} else if (framerate == 59.94 || framerate == 59) {
+		} else if (framerate == 59.94) {
 			return bmdModeHD1080i5994;
 		} else if (framerate == 60) {
 			return bmdModeHD1080i6000;
 		} else if (framerate == 50) {
 			return bmdModeHD1080p50;
-		} else if (framerate == 59.94 || framerate == 59) {
+		} else if (framerate == 59.94) {
 			return bmdModeHD1080p5994;
 		} else if (framerate == 60) {
 			return bmdModeHD1080p6000;
@@ -446,7 +446,7 @@ BMDDisplayMode DeckLinkController::getDisplayMode(int w, int h, float framerate)
 			return bmdModeUnknown;
 		}
 	} else if (w == 2048 && h == 1556) {						// 2k
-		if (framerate == 2398 || framerate == 23) {
+		if (framerate == 23.98) {
 			return bmdMode2k2398;
 		} else if (framerate == 24) {
 			return bmdMode2k24;
@@ -458,7 +458,7 @@ BMDDisplayMode DeckLinkController::getDisplayMode(int w, int h, float framerate)
 			return bmdModeUnknown;
 		}
 	} else if (w == 2048 && h == 1080) {						// 2k DCI
-		if (framerate == 23.98 || framerate == 23) {
+		if (framerate == 23.98) {
 			return bmdMode2kDCI2398;
 		} else if (framerate == 24) {
 			return bmdMode2kDCI24;
@@ -470,13 +470,13 @@ BMDDisplayMode DeckLinkController::getDisplayMode(int w, int h, float framerate)
 			return bmdModeUnknown;
 		}
 	} else if (w == 3840 && h == 2160) {						// 4K
-		if (framerate == 23.98 || framerate ==  23) {
+		if (framerate == 23.98) {
 			return bmdMode4K2160p2398;
 		} else if (framerate == 24) {
 			return bmdMode4K2160p24;
 		} else if (framerate == 25) {
 			return bmdMode4K2160p25;
-		} else if (framerate == 29.97 || framerate == 29) {
+		} else if (framerate == 29.97) {
 			return bmdMode4K2160p2997;
 		} else if (framerate == 30) {
 			return bmdMode4K2160p30;
@@ -486,7 +486,7 @@ BMDDisplayMode DeckLinkController::getDisplayMode(int w, int h, float framerate)
 			return bmdModeUnknown;
 		}
 	} else if (w == 4096 && h == 2160) {						// 4k DCI
-		if (framerate == 23.98 || framerate == 23) {
+		if (framerate == 23.98) {
 		    return bmdMode4kDCI2398;
 		} else if (framerate == 24) {
 		    return bmdMode4kDCI24;
