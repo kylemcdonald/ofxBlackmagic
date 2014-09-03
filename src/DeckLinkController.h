@@ -40,15 +40,20 @@ public:
 	vector<string> getDisplayModeNames();
 	bool isFormatDetectionEnabled();
 	bool isCapturing();
-	
+
+	unsigned long getDisplayModeBufferSize(BMDDisplayMode mode);
+
 	bool startCaptureWithMode(BMDDisplayMode videoMode);
 	bool startCaptureWithIndex(int videoModeIndex);
 	void stopCapture();
-	
+    
 	virtual HRESULT QueryInterface (REFIID iid, LPVOID *ppv) {return E_NOINTERFACE;}
 	virtual ULONG AddRef () {return 1;}
 	virtual ULONG Release () {return 1;}
-	
+    
 	virtual HRESULT VideoInputFormatChanged (/* in */ BMDVideoInputFormatChangedEvents notificationEvents, /* in */ IDeckLinkDisplayMode *newDisplayMode, /* in */ BMDDetectedVideoInputFormatFlags detectedSignalFlags);
 	virtual HRESULT VideoInputFrameArrived (/* in */ IDeckLinkVideoInputFrame* videoFrame, /* in */ IDeckLinkAudioInputPacket* audioPacket);
+    
+	BMDDisplayMode getDisplayMode(int w, int h);
+	BMDDisplayMode getDisplayMode(int w, int h, float framerate);
 };
