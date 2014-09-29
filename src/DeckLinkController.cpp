@@ -216,13 +216,12 @@ bool DeckLinkController::startCaptureWithIndex(int videoModeIndex)  {
 }
 
 bool DeckLinkController::startCaptureWithMode(BMDDisplayMode videoMode) {
-	if(videoMode == bmdMode4K2160p2997) {
-		vector<unsigned char> prototype(3840 * 2160 * 2);
+    int bufferSize = getDisplayModeBufferSize(videoMode);
+    
+	if(bufferSize != 0) {
+		vector<unsigned char> prototype(bufferSize);
 		buffer.setup(prototype);
-	} else if(videoMode == bmdModeHD1080p30) {
-        vector<unsigned char> prototype(1920 * 1080 * 2);
-		buffer.setup(prototype);
-    }else{
+	} else{
 		ofLogError("DeckLinkController") << "DeckLinkController needs to be updated to support that mode.";
 		return false;
 	}
