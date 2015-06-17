@@ -2,7 +2,12 @@
 #include "DeckLinkController.h"
 
 DeckLinkController::DeckLinkController()
-: selectedDevice(NULL), deckLinkInput(NULL), supportFormatDetection(false), currentlyCapturing(false)  {}
+: selectedDevice(NULL)
+, deckLinkInput(NULL)
+, supportFormatDetection(false)
+, currentlyCapturing(false)
+, rgbaFrame(NULL)  {
+}
 
 DeckLinkController::~DeckLinkController()  {
 	vector<IDeckLink*>::iterator it;
@@ -11,6 +16,13 @@ DeckLinkController::~DeckLinkController()  {
 	for(it = deviceList.begin(); it != deviceList.end(); it++) {
 		(*it)->Release();
 	}
+    
+    // Release the IDeckLinkVideoConversion
+    if (this->videoConverter) {
+        this->videoConverter->Release();
+    }
+    
+    delete rgbaFrame;
 }
 
 bool DeckLinkController::init()  {
@@ -35,6 +47,10 @@ bool DeckLinkController::init()  {
 		ofLogError("DeckLinkController") << "You will not be able to use the features of this application until a Blackmagic device is installed.";
 		goto bail;
 	}
+    
+    // Create a video converter
+    videoConverter = CreateVideoConversionInstance();
+    videoConverter->AddRef();
 	
 	result = true;
 	
@@ -314,7 +330,21 @@ HRESULT DeckLinkController::VideoInputFrameArrived (/* in */ IDeckLinkVideoInput
 //	getAncillaryDataFromFrame(videoFrame, bmdTimecodeRP188VITC1, ancillaryData.rp188vitc1Timecode, ancillaryData.rp188vitc1UserBits);
 //	getAncillaryDataFromFrame(videoFrame, bmdTimecodeRP188LTC, ancillaryData.rp188ltcTimecode, ancillaryData.rp188ltcUserBits);
 //	getAncillaryDataFromFrame(videoFrame, bmdTimecodeRP188VITC2, ancillaryData.rp188vitc2Timecode, ancillaryData.rp188vitc2UserBits);
+    
+    // Using DeckLink SDK for colour conversion
+    if (!rgbaFrame) {
+        rgbaFrame = new VideoFrame(videoFrame->GetWidth(), videoFrame->GetHeight());
+    }
+    
+    if (rgbaFrame->lock.tryLock(500)) {
+        videoConverter->ConvertFrame(videoFrame, rgbaFrame);
+        rgbaFrame->lock.unlock();
+    }
+    else {
+        cout << "Cannot copy frame data as videoFrame is locked" << endl;
+    }
 
+    // Raw data
 	void* bytes;
 	videoFrame->GetBytes(&bytes);
 	unsigned char* raw = (unsigned char*) bytes;

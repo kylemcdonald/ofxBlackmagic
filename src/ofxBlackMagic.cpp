@@ -62,10 +62,18 @@ ofPixels& ofxBlackMagic::getGrayPixels() {
 
 ofPixels& ofxBlackMagic::getColorPixels() {
 	if(colorPixOld) {
-		colorPix.allocate(width, height, OF_IMAGE_COLOR);
-		unsigned int n = width * height;
-		cby0cry1_to_rgb(&(getYuvRaw()[0]), colorPix.getPixels(), n);
-		colorPixOld = false;
+//		colorPix.allocate(width, height, OF_IMAGE_COLOR);
+//		unsigned int n = width * height;
+//		cby0cry1_to_rgb(&(getYuvRaw()[0]), colorPix.getPixels(), n);
+//		colorPixOld = false;
+        
+        if (controller.rgbaFrame) {
+            if (controller.rgbaFrame->lock.tryLock(500)) {
+                colorPix = controller.rgbaFrame->getPixelsRef();
+                controller.rgbaFrame->lock.unlock();
+                colorPixOld = false;
+            }
+        }
 	}
 	return colorPix;
 }

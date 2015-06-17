@@ -11,6 +11,9 @@
 
 #include "DeckLinkAPI.h"
 #include "TripleBuffer.h"
+#include "VideoFrame.h"
+
+class VideoFrame;
 
 class DeckLinkController : public IDeckLinkInputCallback {
 private:
@@ -21,6 +24,8 @@ private:
 	
 	bool supportFormatDetection;
 	bool currentlyCapturing;
+    
+    IDeckLinkVideoConversion *videoConverter;
 	
 	void getAncillaryDataFromFrame(IDeckLinkVideoInputFrame* frame, BMDTimecodeFormat format, string& timecodeString, string& userBitsString);
 	
@@ -56,4 +61,6 @@ public:
     
 	BMDDisplayMode getDisplayMode(int w, int h);
 	BMDDisplayMode getDisplayMode(int w, int h, float framerate);
+    
+    VideoFrame *rgbaFrame;
 };
