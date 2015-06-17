@@ -29,6 +29,7 @@
 		E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */; };
 		E7E077E815D3B6510020DFD4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E715D3B6510020DFD4 /* QTKit.framework */; };
 		E7F985F815E0DEA3003869B5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F985F515E0DE99003869B5 /* Accelerate.framework */; };
+		F3003DDD1B3213A100B07B83 /* VideoFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3003DDB1B3213A100B07B83 /* VideoFrame.cpp */; };
 		FF2A09A9D39D58C1556A39E0 /* DeckLinkController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1716A5684BC3EB831AC8B6BA /* DeckLinkController.cpp */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +101,8 @@
 		E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		E7E077E715D3B6510020DFD4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		E7F985F515E0DE99003869B5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
+		F3003DDB1B3213A100B07B83 /* VideoFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VideoFrame.cpp; path = ../src/VideoFrame.cpp; sourceTree = "<group>"; };
+		F3003DDC1B3213A100B07B83 /* VideoFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoFrame.h; path = ../src/VideoFrame.h; sourceTree = "<group>"; };
 		F32E0062C7902184B545B994 /* DeckLinkAPIDeckControl.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DeckLinkAPIDeckControl.h; path = ../../../addons/ofxBlackMagic/libs/DeckLink/include/DeckLinkAPIDeckControl.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -166,6 +169,8 @@
 				22DBCF6B53F1127EAD052CA5 /* TripleBuffer.h */,
 				273629921820E91D00CB625E /* ColorConversion.cpp */,
 				273629931820E91D00CB625E /* ColorConversion.h */,
+				F3003DDB1B3213A100B07B83 /* VideoFrame.cpp */,
+				F3003DDC1B3213A100B07B83 /* VideoFrame.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -371,6 +376,7 @@
 				273629941820E91D00CB625E /* ColorConversion.cpp in Sources */,
 				0B06AF481628430095F582FA /* ofxBlackMagic.cpp in Sources */,
 				2413480B948EEA290CED44D2 /* DeckLinkAPIDispatch.cpp in Sources */,
+				F3003DDD1B3213A100B07B83 /* VideoFrame.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
