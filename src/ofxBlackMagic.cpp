@@ -68,7 +68,7 @@ ofPixels& ofxBlackMagic::getColorPixels() {
 //		colorPixOld = false;
         
         if (controller.rgbaFrame) {
-            if (controller.rgbaFrame->lock.tryLock(500)) {
+            if (controller.rgbaFrame->lock.tryLock(VIDEO_CONVERSION_TRYLOCK_TIMEOUT)) {
                 colorPix = controller.rgbaFrame->getPixelsRef();
                 controller.rgbaFrame->lock.unlock();
                 colorPixOld = false;

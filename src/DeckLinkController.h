@@ -13,6 +13,11 @@
 #include "TripleBuffer.h"
 #include "VideoFrame.h"
 
+// The value comes from the addon ofxBlackMagic2 by Elliot Woods.
+// I need to ask him why he picked that value, and I need to run more tests to understand why half a second timeout is necessary.
+// See PR #8 - https://github.com/kylemcdonald/ofxBlackmagic/pull/8
+#define VIDEO_CONVERSION_TRYLOCK_TIMEOUT 500
+
 class VideoFrame;
 
 class DeckLinkController : public IDeckLinkInputCallback {

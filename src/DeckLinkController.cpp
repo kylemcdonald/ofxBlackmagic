@@ -336,7 +336,7 @@ HRESULT DeckLinkController::VideoInputFrameArrived (/* in */ IDeckLinkVideoInput
         rgbaFrame = new VideoFrame(videoFrame->GetWidth(), videoFrame->GetHeight());
     }
     
-    if (rgbaFrame->lock.tryLock(500)) {
+    if (rgbaFrame->lock.tryLock(VIDEO_CONVERSION_TRYLOCK_TIMEOUT)) {
         videoConverter->ConvertFrame(videoFrame, rgbaFrame);
         rgbaFrame->lock.unlock();
     }
