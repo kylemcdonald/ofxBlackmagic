@@ -13,8 +13,10 @@
 #include "TripleBuffer.h"
 #include "VideoFrame.h"
 
-// The value comes from the addon ofxBlackMagic2 by Elliot Woods.
-// I need to ask him why he picked that value, and I need to run more tests to understand why half a second timeout is necessary.
+// Lock timeout duration.
+// The lock is necessary to prevent reading from the VideoFrame whilst writing to it.
+// A value 500 milliseconds would be for a 'frame critical' application, as a value of 66 milliseconds would be for a 'latency critical' application.
+// Run tests to determine what timeout value you need.
 // See PR #8 - https://github.com/kylemcdonald/ofxBlackmagic/pull/8
 #define VIDEO_CONVERSION_TRYLOCK_TIMEOUT 500
 
