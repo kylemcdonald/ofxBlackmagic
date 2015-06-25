@@ -10,7 +10,7 @@ ofxBlackMagic::ofxBlackMagic()
 ,colorTexOld(true) {
 }
 
-bool ofxBlackMagic::setup(int width, int height, float framerate) {
+bool ofxBlackMagic::setup(int width, int height, float framerate, ColorFrameCaptureMode colorFrameCaptureMode) {
 	if(!controller.init()) {
 		return false;
 	}
@@ -26,8 +26,22 @@ bool ofxBlackMagic::setup(int width, int height, float framerate) {
 	if(!controller.startCaptureWithMode(displayMode)) {
 		return false;
 	}
+    
+    this->colorFrameCaptureMode = colorFrameCaptureMode;
+    controller.setColorConversionTimeout(this->colorFrameCaptureMode);
+    
 	this->width = width, this->height = height;
+    
 	return true;
+}
+
+void ofxBlackMagic::setColorFrameCaptureMode(ColorFrameCaptureMode colorFrameCaptureMode) {
+    this->colorFrameCaptureMode = colorFrameCaptureMode;
+    controller.setColorConversionTimeout(this->colorFrameCaptureMode);
+}
+
+ofxBlackMagic::ColorFrameCaptureMode ofxBlackMagic::getColorFrameCaptureMode() {
+    return colorFrameCaptureMode;
 }
 
 void ofxBlackMagic::close() {
@@ -68,7 +82,7 @@ ofPixels& ofxBlackMagic::getColorPixels() {
 //		colorPixOld = false;
         
         if (controller.rgbaFrame) {
-            if (controller.rgbaFrame->lock.tryLock(VIDEO_CONVERSION_TRYLOCK_TIMEOUT)) {
+            if (controller.rgbaFrame->lock.tryLock(colorFrameCaptureMode)) {
                 colorPix = controller.rgbaFrame->getPixelsRef();
                 controller.rgbaFrame->lock.unlock();
                 colorPixOld = false;

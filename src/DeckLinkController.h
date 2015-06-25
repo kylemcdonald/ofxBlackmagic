@@ -13,13 +13,6 @@
 #include "TripleBuffer.h"
 #include "VideoFrame.h"
 
-// Lock timeout duration.
-// The lock is necessary to prevent reading from the VideoFrame whilst writing to it.
-// A value 500 milliseconds would be for a 'frame critical' application, as a value of 66 milliseconds would be for a 'latency critical' application.
-// Run tests to determine what timeout value you need.
-// See PR #8 - https://github.com/kylemcdonald/ofxBlackmagic/pull/8
-#define VIDEO_CONVERSION_TRYLOCK_TIMEOUT 500
-
 class VideoFrame;
 
 class DeckLinkController : public IDeckLinkInputCallback {
@@ -33,6 +26,7 @@ private:
 	bool currentlyCapturing;
     
     IDeckLinkVideoConversion *videoConverter;
+    int colorConversionTimeout;
 	
 	void getAncillaryDataFromFrame(IDeckLinkVideoInputFrame* frame, BMDTimecodeFormat format, string& timecodeString, string& userBitsString);
 	
@@ -48,6 +42,7 @@ public:
 	vector<string> getDeviceNameList();
 	
 	bool selectDevice(int index);
+    void setColorConversionTimeout(int ms);
 	
 	vector<string> getDisplayModeNames();
 	bool isFormatDetectionEnabled();

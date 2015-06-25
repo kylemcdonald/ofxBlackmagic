@@ -147,6 +147,10 @@ bail:
 	return result;
 }
 
+void DeckLinkController::setColorConversionTimeout(int ms)  {
+    colorConversionTimeout = ms;
+}
+
 vector<string> DeckLinkController::getDisplayModeNames()  {
 	vector<string> modeNames;
 	int modeIndex;
@@ -336,7 +340,7 @@ HRESULT DeckLinkController::VideoInputFrameArrived (/* in */ IDeckLinkVideoInput
         rgbaFrame = new VideoFrame(videoFrame->GetWidth(), videoFrame->GetHeight());
     }
     
-    if (rgbaFrame->lock.tryLock(VIDEO_CONVERSION_TRYLOCK_TIMEOUT)) {
+    if (rgbaFrame->lock.tryLock(colorConversionTimeout)) {
         videoConverter->ConvertFrame(videoFrame, rgbaFrame);
         rgbaFrame->lock.unlock();
     }
