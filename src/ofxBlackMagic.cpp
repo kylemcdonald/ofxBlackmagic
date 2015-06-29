@@ -10,11 +10,11 @@ ofxBlackMagic::ofxBlackMagic()
 ,colorTexOld(true) {
 }
 
-bool ofxBlackMagic::setup(int width, int height, float framerate, ColorFrameCaptureMode colorFrameCaptureMode) {
+bool ofxBlackMagic::setup(int width, int height, float framerate, int deviceId, ColorFrameCaptureMode colorFrameCaptureMode) {
 	if(!controller.init()) {
 		return false;
 	}
-	controller.selectDevice(0);
+	controller.selectDevice(deviceId);
 	vector<string> displayModes = controller.getDisplayModeNames();
 	ofLogVerbose("ofxBlackMagic") << "Available display modes: " << ofToString(displayModes);
     BMDDisplayMode displayMode = controller.getDisplayMode(width, height, framerate);
