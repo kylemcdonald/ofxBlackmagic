@@ -3,7 +3,7 @@
 #include "ofMain.h"
 
 template <class T>
-class TripleBuffer : public ofMutex {
+class TripleBuffer : public std::mutex {
 private:
 	T back, middle, front;
 	bool newData;
