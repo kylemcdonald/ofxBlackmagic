@@ -68,7 +68,7 @@ ofPixels& ofxBlackMagic::getGrayPixels() {
 	if(grayPixOld) {
 		grayPix.allocate(width, height, OF_IMAGE_GRAYSCALE);
 		unsigned int n = width * height;
-		cby0cry1_to_y(&(getYuvRaw()[0]), grayPix.getPixels(), n);
+		cby0cry1_to_y(&(getYuvRaw()[0]), grayPix.getData(), n);
 		grayPixOld = false;
 	}
 	return grayPix;
@@ -82,8 +82,8 @@ ofPixels& ofxBlackMagic::getColorPixels() {
 //		colorPixOld = false;
         
         if (controller.rgbaFrame) {
-                colorPix = controller.rgbaFrame->getPixelsRef();
             if (controller.rgbaFrame->lock.try_lock_for(std::chrono::milliseconds(colorFrameCaptureMode))) {
+                colorPix = controller.rgbaFrame->getPixels();
                 controller.rgbaFrame->lock.unlock();
                 colorPixOld = false;
             }
