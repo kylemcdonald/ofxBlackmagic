@@ -34,11 +34,15 @@ int VideoFrame::getHeight() {
     return this->pixels.getHeight();
 }
 
-unsigned char* VideoFrame::getPixels() {
-    return this->pixels.getPixels();
+unsigned char* VideoFrame::getData() {
+    return this->pixels.getData();
 }
 
-ofPixels& VideoFrame::getPixelsRef() {
+ofPixels& VideoFrame::getPixels() {
+    return this->pixels;
+}
+
+const ofPixels& VideoFrame::getPixels() const {
     return this->pixels;
 }
 

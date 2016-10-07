@@ -38,8 +38,10 @@ public:
     int getWidth();
     int getHeight();
     
-    ofMutex lock;
+    std::timed_mutex lock;
     
-    unsigned char* getPixels();
-    ofPixels& getPixelsRef();
+    unsigned char* getData();
+    
+    const ofPixels & getPixels() const;
+    ofPixels & getPixels();
 };
