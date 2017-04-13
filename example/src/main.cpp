@@ -43,8 +43,11 @@ public:
 	RateTimer timer;
 	
 	void setup() {
+        ofSetVerticalSync(true);
+        ofSetFrameRate(60);
+
 		ofSetLogLevel(OF_LOG_VERBOSE);
-		cam.setup(1920, 1080, 30);
+		cam.setup(bmdModeHD1080p5994);
 	}
 	void exit() {
 		cam.close();

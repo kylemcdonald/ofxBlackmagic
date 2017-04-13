@@ -23,6 +23,7 @@ public:
     
     ofxBlackMagic();
     bool setup(int width, int height, float framerate, int deviceId = 0, ColorFrameCaptureMode colorFrameCaptureMode = LOW_LATENCY);
+    bool setup(BMDDisplayMode displayMode, int deviceId = 0, ColorFrameCaptureMode colorFrameCaptureMode = LOW_LATENCY);
     void setColorFrameCaptureMode(ColorFrameCaptureMode colorFrameCaptureMode); // If you want to set a custom value, you just need to cast it as ofxBlackMagic::ColorFrameCaptureMode
     ColorFrameCaptureMode getColorFrameCaptureMode();
     

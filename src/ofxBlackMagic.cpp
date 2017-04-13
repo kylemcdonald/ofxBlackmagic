@@ -11,28 +11,50 @@ ofxBlackMagic::ofxBlackMagic()
 }
 
 bool ofxBlackMagic::setup(int width, int height, float framerate, int deviceId, ColorFrameCaptureMode colorFrameCaptureMode) {
-	if(!controller.init()) {
-		return false;
-	}
-	controller.selectDevice(deviceId);
-	vector<string> displayModes = controller.getDisplayModeNames();
-	ofLogVerbose("ofxBlackMagic") << "Available display modes: " << ofToString(displayModes);
+    if(!controller.init()) {
+        return false;
+    }
+    controller.selectDevice(deviceId);
+    vector<string> displayModes = controller.getDisplayModeNames();
+    ofLogVerbose("ofxBlackMagic") << "Available display modes: " << ofToString(displayModes);
     BMDDisplayMode displayMode = controller.getDisplayMode(width, height, framerate);
-
+    
     if(displayMode == bmdModeUnknown) {
-		ofLogError("ofxBlackMagic") << "Resolution and framerate combination not supported.";
-		return false;
-	}
-	if(!controller.startCaptureWithMode(displayMode)) {
-		return false;
-	}
+        ofLogError("ofxBlackMagic") << "Resolution and framerate combination not supported.";
+        return false;
+    }
+    if(!controller.startCaptureWithMode(displayMode)) {
+        return false;
+    }
     
     this->colorFrameCaptureMode = colorFrameCaptureMode;
     controller.setColorConversionTimeout(this->colorFrameCaptureMode);
     
-	this->width = width, this->height = height;
+    this->width = width, this->height = height;
     
-	return true;
+    return true;
+}
+
+bool ofxBlackMagic::setup(BMDDisplayMode displayMode, int deviceId, ColorFrameCaptureMode colorFrameCaptureMode) {
+    if(!controller.init()) {
+        return false;
+    }
+    controller.selectDevice(deviceId);
+    vector<string> displayModes = controller.getDisplayModeNames();
+    ofLogVerbose("ofxBlackMagic") << "Available display modes: " << ofToString(displayModes);
+    
+    if(displayMode == bmdModeUnknown) {
+        ofLogError("ofxBlackMagic") << "Resolution and framerate combination not supported.";
+        return false;
+    }
+    if(!controller.startCaptureWithMode(displayMode)) {
+        return false;
+    }
+    
+    this->colorFrameCaptureMode = colorFrameCaptureMode;
+    controller.setColorConversionTimeout(this->colorFrameCaptureMode);
+    
+    return true;
 }
 
 void ofxBlackMagic::setColorFrameCaptureMode(ColorFrameCaptureMode colorFrameCaptureMode) {
